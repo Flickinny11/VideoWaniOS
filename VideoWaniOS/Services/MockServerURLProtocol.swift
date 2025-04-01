@@ -27,24 +27,25 @@ class MockServerURLProtocol: URLProtocol {
         // Determine which API endpoint we're accessing
         let path = url.path
         
-        if path == "/api/health" {
+        switch path {
+        case "/api/health":
             // Health check endpoint
             handleHealthCheck(client: client)
-        } else if path == "/api/extend-prompt" {
+        case "/api/extend-prompt":
             // Prompt extension endpoint
             handlePromptExtension(request: request, client: client)
-        } else if path == "/api/generate" {
+        case "/api/generate":
             // Video generation endpoint
             handleGeneration(request: request, client: client)
-        } else if path.hasPrefix("/api/status/") {
+        case let path where path.hasPrefix("/api/status/"):
             // Status check endpoint
             let requestId = path.replacingOccurrences(of: "/api/status/", with: "")
             handleStatusCheck(requestId: requestId, client: client)
-        } else if path.hasPrefix("/api/video/") {
+        case let path where path.hasPrefix("/api/video/"):
             // Video retrieval endpoint
             let requestId = path.replacingOccurrences(of: "/api/video/", with: "")
             handleVideoRetrieval(requestId: requestId, client: client)
-        } else {
+        default:
             // Unknown endpoint
             let response = HTTPURLResponse(url: url, statusCode: 404, httpVersion: nil, headerFields: nil)!
             client.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
@@ -95,7 +96,7 @@ class MockServerURLProtocol: URLProtocol {
                let prompt = requestDict["prompt"] as? String {
                 
                 // Enhanced prompt
-                let enhancedPrompt = "\(prompt) with high-quality detail, natural motion, cinematic lighting, realistic textures, smooth transitions, professional composition, with realistic environment."
+                let enhancedPrompt = "\(prompt) with high-quality detail, natural motion, cinematic lighting, realistic textures, smooth transitions, professional composition, with realistic environments"
                 
                 // Create response data
                 let responseDict: [String: Any] = [
@@ -193,35 +194,15 @@ class MockServerURLProtocol: URLProtocol {
         // Look up the request
         if let videoRequest = MockServerURLProtocol.activeRequests[requestId] {
             // Create response data
-            let responseDict: [String: Any] = [
+            var responseDict: [String: Any] = [
                 "requestId": requestId,
                 "status": videoRequest.status.rawValue.lowercased(),
                 "progress": videoRequest.progress
             ]
             
             // Add video URL if completed
-            if videoRequest.status == .completed {
-                if let videoURL = MockServerURLProtocol.generatedVideos[requestId] {
-                    let videoUrlString = "http://localhost:7860/api/video/\(requestId)"
-                    var responseDictWithURL = responseDict
-                    responseDictWithURL["videoUrl"] = videoUrlString
-                    
-                    let responseData = try! JSONSerialization.data(withJSONObject: responseDictWithURL, options: [])
-                    
-                    // Create successful response
-                    let response = HTTPURLResponse(
-                        url: url,
-                        statusCode: 200,
-                        httpVersion: nil,
-                        headerFields: ["Content-Type": "application/json"]
-                    )!
-                    
-                    // Send response
-                    client.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
-                    client.urlProtocol(self, didLoad: responseData)
-                    client.urlProtocolDidFinishLoading(self)
-                    return
-                }
+            if videoRequest.status == .completed, let videoURL = MockServerURLProtocol.generatedVideos[requestId] {
+                responseDict["videoUrl"] = "http://localhost:7860/api/video/\(requestId)"
             }
             
             let responseData = try! JSONSerialization.data(withJSONObject: responseDict, options: [])
@@ -392,9 +373,11 @@ class MockServerURLProtocol: URLProtocol {
             let frameCount = 30 // 1 second at 30fps
             
             for i in 0..<frameCount {
-                // Create a UIImage for this frame
                 UIGraphicsBeginImageContextWithOptions(CGSize(width: width, height: height), false, 1.0)
-                let context = UIGraphicsGetCurrentContext()!
+                guard let context = UIGraphicsGetCurrentContext() else {
+                    UIGraphicsEndImageContext()
+                    continue
+                }
                 
                 // Draw background - dark gradient
                 let gradient = CGGradient(
@@ -485,89 +468,4 @@ class MockServerURLProtocol: URLProtocol {
                     .foregroundColor: UIColor.white,
                     .font: UIFont.monospacedDigitSystemFont(ofSize: 14, weight: .medium)
                 ]
-                let timestampRect = CGRect(x: width - 120, y: 20, width: 100, height: 20)
-                (frameText as NSString).draw(in: timestampRect, withAttributes: timestampAttributes)
-                
-                // Add a fancy logo-like watermark
-                let watermarkText = "VideoWan"
-                let watermarkAttributes: [NSAttributedString.Key: Any] = [
-                    .foregroundColor: UIColor.white.withAlphaComponent(0.3),
-                    .font: UIFont.systemFont(ofSize: 24, weight: .bold)
-                ]
-                let watermarkRect = CGRect(x: 20, y: 20, width: 200, height: 30)
-                (watermarkText as NSString).draw(in: watermarkRect, withAttributes: watermarkAttributes)
-                
-                // Get the image and add to our array
-                let image = UIGraphicsGetImageFromCurrentImageContext()!
-                UIGraphicsEndImageContext()
-                
-                images.append(image)
-            }
-            
-            // Generate MP4 with our VideoGenerator
-            VideoGenerator.generateMP4FromImages(images, frameRate: 30, outputURL: fileURL) { success, error in
-                if success {
-                    print("Successfully generated MP4 video at: \(fileURL)")
-                    completion(fileURL)
-                } else {
-                    if let error = error {
-                        print("Error generating MP4: \(error.localizedDescription)")
-                    }
-                    
-                    // Fallback to JPEG if video generation fails
-                    if let firstImage = images.first {
-                        let jpegURL = videoDir.appendingPathComponent("\(requestId).jpg")
-                        if let jpegData = firstImage.jpegData(compressionQuality: 0.9) {
-                            do {
-                                try jpegData.write(to: jpegURL)
-                                print("Fallback to JPEG image at: \(jpegURL)")
-                                completion(jpegURL)
-                            } catch {
-                                print("Error saving fallback JPEG: \(error)")
-                                completion(nil)
-                            }
-                        } else {
-                            completion(nil)
-                        }
-                    } else {
-                        completion(nil)
-                    }
-                }
-            }
-        }
-    }
-    
-    // Create a video from a sequence of images
-    private func createGIFFromImages(_ images: [UIImage], delayTime: TimeInterval) -> Data {
-        // For MP4 generation, we'll generate the video asynchronously and return a placeholder initially
-        // The actual MP4 file will be saved to the file system
-        
-        // Create a directory for videos if it doesn't exist
-        let docDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let videoDir = docDir.appendingPathComponent("videos", isDirectory: true)
-        try? FileManager.default.createDirectory(at: videoDir, withIntermediateDirectories: true)
-        
-        // Create a temporary placeholder image while the video is being processed
-        if let firstImage = images.first,
-           let jpegData = firstImage.jpegData(compressionQuality: 0.8) {
-            
-            // Start video generation in the background
-            let videoURL = videoDir.appendingPathComponent("video_\(UUID().uuidString).mp4")
-            
-            // Use our VideoGenerator to create MP4
-            VideoGenerator.generateMP4FromImages(images, frameRate: 30, outputURL: videoURL) { success, error in
-                if success {
-                    print("MP4 video successfully generated at: \(videoURL)")
-                } else if let error = error {
-                    print("Error generating MP4: \(error.localizedDescription)")
-                }
-            }
-            
-            // Return placeholder data immediately while the actual video is being created
-            return jpegData
-        }
-        
-        // Fallback to an empty data if no images
-        return Data()
-    }
-}
+                let timestampRect = CGRect(x
