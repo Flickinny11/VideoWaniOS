@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "XXXXXXXXXXXXXXX"
+               BlueprintIdentifier = "A1FFFFFF1000000000000023"
                BuildableName = "VideoWaniOS.app"
                BlueprintName = "VideoWaniOS"
                ReferencedContainer = "container:VideoWaniOS.xcodeproj">
@@ -44,7 +44,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "XXXXXXXXXXXXXXX"
+            BlueprintIdentifier = "A1FFFFFF1000000000000023"
             BuildableName = "VideoWaniOS.app"
             BlueprintName = "VideoWaniOS"
             ReferencedContainer = "container:VideoWaniOS.xcodeproj">
@@ -61,7 +61,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "XXXXXXXXXXXXXXX"
+            BlueprintIdentifier = "A1FFFFFF1000000000000023"
             BuildableName = "VideoWaniOS.app"
             BlueprintName = "VideoWaniOS"
             ReferencedContainer = "container:VideoWaniOS.xcodeproj">
