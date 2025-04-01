@@ -68,4 +68,4 @@ All operations occur locally on your device. The app does not send any data to e
 - **App won't install**: Make sure your iPad is trusted on your Mac and that your Apple ID is allowed to install apps
 - **App crashes on launch**: Try restarting your iPad
 - **Can't generate videos**: Check that you've granted camera and photo permissions when prompted
-- **Videos not showing**: The app needs storage permissions to save generated videos
+- **Videos not showing**: The app needs storage permissions to save generated videos# VideoWaniOS
