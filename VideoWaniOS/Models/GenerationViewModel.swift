@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import Combine
+import Photos
 
 class GenerationViewModel: ObservableObject {
     @Published var videoRequests: [VideoRequest] = []
@@ -228,7 +229,37 @@ class GenerationViewModel: ObservableObject {
     func downloadVideo(from request: VideoRequest) {
         guard let videoURL = request.resultVideoURL else { return }
         
-        UIApplication.shared.open(videoURL)
+        // Check if it's a local file URL that we can save to Photos
+        if videoURL.isFileURL && (videoURL.pathExtension.lowercased() == "mp4" || videoURL.pathExtension.lowercased() == "mov") {
+            saveVideoToPhotoLibrary(videoURL: videoURL)
+        } else {
+            // Just open the URL if it's not a local video file
+            UIApplication.shared.open(videoURL)
+        }
+    }
+    
+    func saveVideoToPhotoLibrary(videoURL: URL) {
+        // Import the Photos framework in your project
+        PHPhotoLibrary.requestAuthorization { status in
+            if status == .authorized {
+                PHPhotoLibrary.shared().performChanges({
+                    // Add the video as an asset to the photo library
+                    PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: videoURL)
+                }) { success, error in
+                    DispatchQueue.main.async {
+                        if success {
+                            self.errorMessage = "Video saved to Photos library"
+                        } else if let error = error {
+                            self.errorMessage = "Error saving video: \(error.localizedDescription)"
+                        }
+                    }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.errorMessage = "Permission to save to Photos denied"
+                }
+            }
+        }
     }
     
     func deleteRequest(_ request: VideoRequest) {

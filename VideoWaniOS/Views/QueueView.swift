@@ -158,16 +158,39 @@ struct VideoDetailView: View {
                 }
                 .padding(.horizontal)
                 
+                // Save to Photos button
                 Button(action: {
-                    viewModel.downloadVideo(from: request)
+                    viewModel.saveVideoToPhotoLibrary(videoURL: videoURL)
                 }) {
                     HStack {
-                        Image(systemName: "square.and.arrow.down")
-                        Text("Download Video")
+                        Image(systemName: "photo")
+                        Text("Save to Photos")
                     }
                     .frame(minWidth: 200)
                     .padding()
                     .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                }
+                
+                // Share button
+                Button(action: {
+                    let activityVC = UIActivityViewController(activityItems: [videoURL], applicationActivities: nil)
+                    
+                    // Get the root view controller
+                    if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                       let rootVC = windowScene.windows.first?.rootViewController {
+                        // Present the activity view controller
+                        rootVC.present(activityVC, animated: true, completion: nil)
+                    }
+                }) {
+                    HStack {
+                        Image(systemName: "square.and.arrow.up")
+                        Text("Share Video")
+                    }
+                    .frame(minWidth: 200)
+                    .padding()
+                    .background(Color.green)
                     .foregroundColor(.white)
                     .cornerRadius(10)
                 }

@@ -252,12 +252,13 @@ class MockServerURLProtocol: URLProtocol {
                 // Read the video data
                 let videoData = try Data(contentsOf: videoFilePath)
                 
-                // Create successful response
+                // Create successful response with proper content type for MP4
+                let contentType = videoFilePath.pathExtension.lowercased() == "mp4" ? "video/mp4" : "image/gif"
                 let response = HTTPURLResponse(
                     url: url,
                     statusCode: 200,
                     httpVersion: nil,
-                    headerFields: ["Content-Type": "image/gif"] // Using GIF as our video format
+                    headerFields: ["Content-Type": contentType]
                 )!
                 
                 // Send response
@@ -278,12 +279,13 @@ class MockServerURLProtocol: URLProtocol {
                         // Read the video data
                         let videoData = try Data(contentsOf: fileURL)
                         
-                        // Create successful response
+                        // Create successful response with proper content type for MP4
+                        let contentType = fileURL.pathExtension.lowercased() == "mp4" ? "video/mp4" : "image/gif"
                         let response = HTTPURLResponse(
                             url: url,
                             statusCode: 200,
                             httpVersion: nil,
-                            headerFields: ["Content-Type": "image/gif"]
+                            headerFields: ["Content-Type": contentType]
                         )!
                         
                         // Send response
@@ -353,7 +355,7 @@ class MockServerURLProtocol: URLProtocol {
         }
     }
     
-    // Generate a mock video (animated GIF)
+    // Generate a mock video (MP4)
     private func generateMockVideo(requestId: String, completion: @escaping (URL?) -> Void) {
         // Get the video request
         guard let request = MockServerURLProtocol.activeRequests[requestId] else {
@@ -361,17 +363,17 @@ class MockServerURLProtocol: URLProtocol {
             return
         }
         
-        // Create an animated GIF
+        // Create an MP4 video
         DispatchQueue.global().async {
             // Create a directory for videos if it doesn't exist
             let docDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
             let videoDir = docDir.appendingPathComponent("videos", isDirectory: true)
             try? FileManager.default.createDirectory(at: videoDir, withIntermediateDirectories: true)
             
-            // Create a file URL for our GIF
-            let fileURL = videoDir.appendingPathComponent("\(requestId).gif")
+            // Create a file URL for our MP4
+            let fileURL = videoDir.appendingPathComponent("\(requestId).mp4")
             
-            // Create a simple animated GIF
+            // Create a video with proper dimensions
             let width: Int
             let height: Int
             
@@ -385,47 +387,115 @@ class MockServerURLProtocol: URLProtocol {
                 height = 720
             }
             
-            // Create frames
+            // Create more frames for smoother video (30fps)
             var images: [UIImage] = []
-            let frameCount = 10
+            let frameCount = 30 // 1 second at 30fps
             
             for i in 0..<frameCount {
                 // Create a UIImage for this frame
                 UIGraphicsBeginImageContextWithOptions(CGSize(width: width, height: height), false, 1.0)
                 let context = UIGraphicsGetCurrentContext()!
                 
-                // Draw background
-                context.setFillColor(UIColor(red: 0.1, green: 0.1, blue: 0.2, alpha: 1.0).cgColor)
-                context.fill(CGRect(x: 0, y: 0, width: width, height: height))
+                // Draw background - dark gradient
+                let gradient = CGGradient(
+                    colorsSpace: CGColorSpaceCreateDeviceRGB(),
+                    colors: [
+                        UIColor(red: 0.05, green: 0.05, blue: 0.1, alpha: 1.0).cgColor,
+                        UIColor(red: 0.1, green: 0.1, blue: 0.3, alpha: 1.0).cgColor
+                    ] as CFArray,
+                    locations: [0.0, 1.0]
+                )!
                 
-                // Draw animated element
+                context.drawLinearGradient(
+                    gradient,
+                    start: CGPoint(x: 0, y: 0),
+                    end: CGPoint(x: width, y: height),
+                    options: []
+                )
+                
+                // Draw a more sophisticated animated element
                 let progress = CGFloat(i) / CGFloat(frameCount - 1)
-                let xPos = Int(progress * CGFloat(width - 100))
-                let yPos = height / 2 - 50
                 
-                context.setFillColor(UIColor(red: 0.2, green: 0.4, blue: 0.8, alpha: 1.0).cgColor)
-                context.setStrokeColor(UIColor.white.cgColor)
-                context.setLineWidth(2.0)
-                context.addRect(CGRect(x: xPos, y: yPos, width: 100, height: 100))
-                context.drawPath(using: .fillStroke)
+                // Motion path - object moves across screen in a wave pattern
+                let xPos = Int(progress * CGFloat(width - 150))
+                let amplitude = CGFloat(height) * 0.2
+                let frequency = 3.0 // Higher values make more wave cycles
+                let yOffset = sin(progress * .pi * frequency) * amplitude
+                let yPos = Int(CGFloat(height) / 2 - 75 + yOffset)
                 
-                // Add text showing the prompt
+                // Draw a more interesting shape - gradient-filled circle with shadow
+                context.setShadow(offset: CGSize(width: 5, height: 5), blur: 5, color: UIColor.black.withAlphaComponent(0.5).cgColor)
+                
+                let objectRect = CGRect(x: xPos, y: yPos, width: 150, height: 150)
+                let objectPath = UIBezierPath(ovalIn: objectRect)
+                
+                // Create a 3D-like gradient for the object
+                let objectGradient = CGGradient(
+                    colorsSpace: CGColorSpaceCreateDeviceRGB(),
+                    colors: [
+                        UIColor(red: 0.4, green: 0.6, blue: 1.0, alpha: 1.0).cgColor,
+                        UIColor(red: 0.2, green: 0.3, blue: 0.8, alpha: 1.0).cgColor
+                    ] as CFArray,
+                    locations: [0.0, 1.0]
+                )!
+                
+                context.saveGState()
+                context.addPath(objectPath.cgPath)
+                context.clip()
+                context.drawLinearGradient(
+                    objectGradient,
+                    start: CGPoint(x: xPos, y: yPos),
+                    end: CGPoint(x: xPos + 150, y: yPos + 150),
+                    options: []
+                )
+                context.restoreGState()
+                
+                // Add highlight to simulate lighting
+                context.setFillColor(UIColor.white.withAlphaComponent(0.3).cgColor)
+                let highlightPath = UIBezierPath(ovalIn: CGRect(
+                    x: xPos + 30,
+                    y: yPos + 30,
+                    width: 50,
+                    height: 50
+                ))
+                context.addPath(highlightPath.cgPath)
+                context.fillPath()
+                
+                // Add text showing the prompt with a nicer style
                 let promptText = request.prompt
+                
+                // Add background for text readability
+                let textBgRect = CGRect(x: 0, y: height - 50, width: width, height: 40)
+                context.setFillColor(UIColor.black.withAlphaComponent(0.5).cgColor)
+                context.fill(textBgRect)
+                
+                // Draw text with shadow
+                context.setShadow(offset: CGSize(width: 1, height: 1), blur: 2, color: UIColor.black.cgColor)
+                
                 let promptAttributes: [NSAttributedString.Key: Any] = [
                     .foregroundColor: UIColor.white,
-                    .font: UIFont.systemFont(ofSize: 14)
+                    .font: UIFont.systemFont(ofSize: 18, weight: .medium)
                 ]
-                let promptRect = CGRect(x: 10, y: height - 30, width: width - 20, height: 20)
+                let promptRect = CGRect(x: 20, y: height - 40, width: width - 40, height: 30)
                 (promptText as NSString).draw(in: promptRect, withAttributes: promptAttributes)
                 
-                // Add frame number
-                let frameText = "Frame \(i+1)/\(frameCount)"
-                let attributes: [NSAttributedString.Key: Any] = [
+                // Add timestamp
+                let frameText = String(format: "%.2f sec", Double(i) / Double(frameCount))
+                let timestampAttributes: [NSAttributedString.Key: Any] = [
                     .foregroundColor: UIColor.white,
-                    .font: UIFont.systemFont(ofSize: 12)
+                    .font: UIFont.monospacedDigitSystemFont(ofSize: 14, weight: .medium)
                 ]
-                let textRect = CGRect(x: 10, y: 10, width: 100, height: 20)
-                (frameText as NSString).draw(in: textRect, withAttributes: attributes)
+                let timestampRect = CGRect(x: width - 120, y: 20, width: 100, height: 20)
+                (frameText as NSString).draw(in: timestampRect, withAttributes: timestampAttributes)
+                
+                // Add a fancy logo-like watermark
+                let watermarkText = "VideoWan"
+                let watermarkAttributes: [NSAttributedString.Key: Any] = [
+                    .foregroundColor: UIColor.white.withAlphaComponent(0.3),
+                    .font: UIFont.systemFont(ofSize: 24, weight: .bold)
+                ]
+                let watermarkRect = CGRect(x: 20, y: 20, width: 200, height: 30)
+                (watermarkText as NSString).draw(in: watermarkRect, withAttributes: watermarkAttributes)
                 
                 // Get the image and add to our array
                 let image = UIGraphicsGetImageFromCurrentImageContext()!
@@ -434,38 +504,70 @@ class MockServerURLProtocol: URLProtocol {
                 images.append(image)
             }
             
-            // Create the animated GIF data
-            let gifData = self.createGIFFromImages(images, delayTime: 0.2)
-            
-            // Save to file
-            do {
-                try gifData.write(to: fileURL)
-                completion(fileURL)
-            } catch {
-                print("Error saving GIF: \(error.localizedDescription)")
-                completion(nil)
+            // Generate MP4 with our VideoGenerator
+            VideoGenerator.generateMP4FromImages(images, frameRate: 30, outputURL: fileURL) { success, error in
+                if success {
+                    print("Successfully generated MP4 video at: \(fileURL)")
+                    completion(fileURL)
+                } else {
+                    if let error = error {
+                        print("Error generating MP4: \(error.localizedDescription)")
+                    }
+                    
+                    // Fallback to JPEG if video generation fails
+                    if let firstImage = images.first {
+                        let jpegURL = videoDir.appendingPathComponent("\(requestId).jpg")
+                        if let jpegData = firstImage.jpegData(compressionQuality: 0.9) {
+                            do {
+                                try jpegData.write(to: jpegURL)
+                                print("Fallback to JPEG image at: \(jpegURL)")
+                                completion(jpegURL)
+                            } catch {
+                                print("Error saving fallback JPEG: \(error)")
+                                completion(nil)
+                            }
+                        } else {
+                            completion(nil)
+                        }
+                    } else {
+                        completion(nil)
+                    }
+                }
             }
         }
     }
     
-    // Create a GIF from a sequence of images
+    // Create a video from a sequence of images
     private func createGIFFromImages(_ images: [UIImage], delayTime: TimeInterval) -> Data {
-        let data = NSMutableData()
+        // For MP4 generation, we'll generate the video asynchronously and return a placeholder initially
+        // The actual MP4 file will be saved to the file system
         
-        // Add GIF header
-        if let gifHeader = try? Data(contentsOf: Bundle.main.url(forResource: "gif_header", ofType: "data")!) {
-            data.append(gifHeader)
-        } else {
-            // Simplified GIF creation - not a complete implementation
-            // In a real app, you would use a proper GIF creation library
+        // Create a directory for videos if it doesn't exist
+        let docDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let videoDir = docDir.appendingPathComponent("videos", isDirectory: true)
+        try? FileManager.default.createDirectory(at: videoDir, withIntermediateDirectories: true)
+        
+        // Create a temporary placeholder image while the video is being processed
+        if let firstImage = images.first,
+           let jpegData = firstImage.jpegData(compressionQuality: 0.8) {
             
-            // Create a simple static image as fallback
-            if let firstImage = images.first,
-               let jpegData = firstImage.jpegData(compressionQuality: 0.8) {
-                return jpegData
+            // Start video generation in the background
+            let videoURL = videoDir.appendingPathComponent("video_\(UUID().uuidString).mp4")
+            
+            // Use our VideoGenerator to create MP4
+            VideoGenerator.generateMP4FromImages(images, frameRate: 30, outputURL: videoURL) { success, error in
+                if success {
+                    print("MP4 video successfully generated at: \(videoURL)")
+                } else if let error = error {
+                    print("Error generating MP4: \(error.localizedDescription)")
+                }
             }
+            
+            // Return placeholder data immediately while the actual video is being created
+            return jpegData
         }
         
-        return data as Data
+        // Fallback to an empty data if no images
+        return Data()
     }
 }
