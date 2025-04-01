@@ -1,0 +1,70 @@
+name: Build iOS App
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '2.7'
+        bundler-cache: true
+    
+    - name: Install Fastlane
+      run: gem install fastlane
+
+    - name: Create export options plist
+      run: |
+        cat > exportOptions.plist << EOT
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+        <plist version="1.0">
+        <dict>
+            <key>method</key>
+            <string>development</string>
+            <key>provisioningProfiles</key>
+            <dict>
+                <key>com.example.VideoWaniOS</key>
+                <string>iOS Team Provisioning Profile: com.example.VideoWaniOS</string>
+            </dict>
+            <key>signingCertificate</key>
+            <string>Apple Development</string>
+            <key>signingStyle</key>
+            <string>automatic</string>
+            <key>teamID</key>
+            <string>AUTO</string>
+            <key>compileBitcode</key>
+            <false/>
+        </dict>
+        </plist>
+        EOT
+
+    - name: Build iOS App without code signing
+      run: |
+        xcodebuild clean -project VideoWaniOS.xcodeproj -scheme VideoWaniOS -configuration Release
+        xcodebuild -project VideoWaniOS.xcodeproj -scheme VideoWaniOS -configuration Release -sdk iphoneos CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+
+    - name: Create IPA Package
+      run: |
+        mkdir -p build/Payload
+        cp -r build/Release-iphoneos/VideoWaniOS.app build/Payload/
+        cd build && zip -r VideoWaniOS.ipa Payload
+
+    - name: Upload IPA
+      uses: actions/upload-artifact@v2
+      with:
+        name: VideoWaniOS
+        path: build/VideoWaniOS.ipa
+        
+    - name: Archive Build
+      uses: actions/upload-artifact@v2
+      with:
+        name: build
+        path: build/
