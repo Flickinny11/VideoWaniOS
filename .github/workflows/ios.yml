@@ -9,16 +9,28 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v2
-    
+    - uses: actions/checkout@v3
+
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: '2.7'
         bundler-cache: true
-    
+
+    - name: Cache Ruby gems
+      uses: actions/cache@v3
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gems-
+
     - name: Install Fastlane
       run: gem install fastlane
+
+    - name: Install CocoaPods
+      run: bundle exec pod install
+      continue-on-error: true
 
     - name: Create export options plist
       run: |
@@ -58,13 +70,13 @@ jobs:
         cd build && zip -r VideoWaniOS.ipa Payload
 
     - name: Upload IPA
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: VideoWaniOS
         path: build/VideoWaniOS.ipa
-        
+
     - name: Archive Build
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: build
         path: build/
