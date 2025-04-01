@@ -468,4 +468,26 @@ class MockServerURLProtocol: URLProtocol {
                     .foregroundColor: UIColor.white,
                     .font: UIFont.monospacedDigitSystemFont(ofSize: 14, weight: .medium)
                 ]
-                let timestampRect = CGRect(x
+                let timestampRect = CGRect(x: width - 100, y: 10, width: 90, height: 20)
+                (frameText as NSString).draw(in: timestampRect, withAttributes: timestampAttributes)
+                
+                // Capture the image
+                let image = UIGraphicsGetImageFromCurrentImageContext()
+                UIGraphicsEndImageContext()
+                
+                if let image = image {
+                    images.append(image)
+                }
+            }
+            
+            // Generate the MP4 video
+            VideoGenerator.generateMP4FromImages(images, frameRate: 30, outputURL: fileURL) { success, error in
+                if success {
+                    completion(fileURL)
+                } else {
+                    completion(nil)
+                }
+            }
+        }
+    }
+}
