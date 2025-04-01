@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VideoWaniOS - Web Version</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>VideoWaniOS</h1>
+            <p>Turn images into stunning videos with AI</p>
+        </header>
+        
+        <main>
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="create">Create</button>
+                <button class="tab-btn" data-tab="videos">Videos</button>
+            </div>
+            
+            <div class="tab-content active" id="create-tab">
+                <div class="options-section">
+                    <h2>Model Type</h2>
+                    <div class="selector">
+                        <button class="option active" data-model="t2v14B">Text-to-Video 14B</button>
+                        <button class="option" data-model="t2v1_3B">Text-to-Video 1.3B</button>
+                        <button class="option" data-model="i2v14B480P">Image-to-Video 14B (480p)</button>
+                        <button class="option" data-model="i2v14B720P">Image-to-Video 14B (720p)</button>
+                    </div>
+                    
+                    <h2>Resolution</h2>
+                    <div class="selector">
+                        <button class="option active" data-resolution="480p">480p</button>
+                        <button class="option" data-resolution="720p">720p</button>
+                    </div>
+                    
+                    <div id="image-upload-section" style="display: none;">
+                        <h2>Source Image</h2>
+                        <div class="image-upload">
+                            <div id="image-preview">
+                                <p>Select an image</p>
+                            </div>
+                            <input type="file" id="image-input" accept="image/*">
+                            <label for="image-input">Choose from Gallery</label>
+                        </div>
+                    </div>
+                    
+                    <h2>What would you like to generate?</h2>
+                    <textarea id="prompt-input" placeholder="Enter your prompt here..."></textarea>
+                    
+                    <div class="toggle">
+                        <label class="switch">
+                            <input type="checkbox" id="prompt-extension" checked>
+                            <span class="slider round"></span>
+                        </label>
+                        <span>Use Prompt Extension (Recommended)</span>
+                    </div>
+                    
+                    <button id="generate-btn">Generate Video</button>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="videos-tab">
+                <div class="video-list">
+                    <p id="no-videos-msg">No videos generated yet</p>
+                    <!-- Videos will be added here -->
+                </div>
+            </div>
+        </main>
+        
+        <div id="loading-overlay" style="display: none;">
+            <div class="loader"></div>
+            <p id="loading-text">Processing... <span id="progress">0%</span></p>
+        </div>
+    </div>
+    
+    <script src="js/app.js"></script>
+</body>
+</html>
