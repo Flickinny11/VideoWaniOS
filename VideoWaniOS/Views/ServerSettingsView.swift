@@ -77,7 +77,7 @@ struct ServerSettingsView: View {
         }
     }
     
-    private func restartServer() {
+    private mutating func restartServer() {
         statusMessage = "Restarting server..."
         
         viewModel.wanVideoService.startLocalServer()

@@ -201,7 +201,7 @@ class MockServerURLProtocol: URLProtocol {
             ]
             
             // Add video URL if completed
-            if videoRequest.status == .completed, let videoURL = MockServerURLProtocol.generatedVideos[requestId] {
+            if videoRequest.status == .completed, let _ = MockServerURLProtocol.generatedVideos[requestId] {
                 responseDict["videoUrl"] = "http://localhost:7860/api/video/\(requestId)"
             }
             

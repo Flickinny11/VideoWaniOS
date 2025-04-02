@@ -7,7 +7,7 @@ class LocalServerManager {
     
     // Server status
     private(set) var isRunning = false
-    private var serverProcess: Process?
+    private var serverProcess: Any? = nil  // Changed from Process to Any
     private var serverURL = "http://localhost:7860"
     
     // Document directories
@@ -71,7 +71,7 @@ class LocalServerManager {
     // Stop the server
     func stopServer() {
         isRunning = false
-        serverProcess?.terminate()
+        // We don't use Process in this implementation
         serverProcess = nil
     }
     

@@ -13,13 +13,13 @@ struct VideoRequest: Identifiable, Codable {
     var resolution: VideoResolution
     var modelType: ModelType
     
-    init(prompt: String, image: Data? = nil, imageURL: URL? = nil, resolution: VideoResolution = .r480p, modelType: ModelType = .t2v14B) {
+    init(prompt: String, image: Data? = nil, imageURL: URL? = nil, status: VideoStatus = .pending, progress: Double = 0.0, createdAt: Date = Date(), resolution: VideoResolution = .r480p, modelType: ModelType = .t2v14B) {
         self.prompt = prompt
         self.image = image
         self.imageURL = imageURL
-        self.status = .pending
-        self.progress = 0.0
-        self.createdAt = Date()
+        self.status = status
+        self.progress = progress
+        self.createdAt = createdAt
         self.resolution = resolution
         self.modelType = modelType
     }
