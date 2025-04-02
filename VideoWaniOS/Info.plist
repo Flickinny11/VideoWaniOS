@@ -58,5 +58,15 @@
 		<string>fetch</string>
 		<string>remote-notification</string>
 	</array>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app needs access to your microphone to record audio for video generation.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app needs access to your location to tag videos with location data.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app needs access to your location to tag videos with location data.</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>This app needs access to your local network to communicate with the embedded server for video generation.</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>This app needs access to Bluetooth to connect to external devices for video generation.</string>
 </dict>
 </plist>

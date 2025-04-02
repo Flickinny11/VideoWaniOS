@@ -2,5 +2,18 @@
   "info" : {
     "author" : "xcode",
     "version" : 1
-  }
+  },
+  "properties" : {
+    "provides-namespace" : true
+  },
+  "assets" : [
+    {
+      "idiom" : "universal",
+      "filename" : "AppIcon.appiconset/Contents.json"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "AccentColor.colorset/Contents.json"
+    }
+  ]
 }
