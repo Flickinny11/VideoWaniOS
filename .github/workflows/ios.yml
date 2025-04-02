@@ -11,30 +11,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: '3.0'
-        bundler-cache: true
-
-    - name: Cache Ruby gems
-      uses: actions/cache@v3
-      with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-gems-
-
-    - name: Install Fastlane
-      run: gem install fastlane
-
-    - name: Install CocoaPods
-      run: sudo gem install cocoapods
-      continue-on-error: true
-
-    - name: Install dependencies
-      run: bundle install
-
     - name: Install CocoaPods dependencies
       run: pod install
 
