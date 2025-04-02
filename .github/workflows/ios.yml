@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: macos-latest
+    permissions:
+      contents: write
     steps:
     - uses: actions/checkout@v3
 
@@ -25,21 +27,50 @@ jobs:
     - name: Install dependencies
       run: |
         gem install cocoapods
-        pod install || true
+        if [ -f "Podfile" ]; then
+          pod install || pod install --repo-update || echo "Pod install failed, continuing with empty Pods"
+        fi
 
     - name: List files in directory
       run: ls -la
 
+    - name: Create exportOptions.plist
+      run: |
+        cat > exportOptions.plist << EOF
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+        <plist version="1.0">
+        <dict>
+            <key>method</key>
+            <string>development</string>
+            <key>compileBitcode</key>
+            <false/>
+            <key>signingStyle</key>
+            <string>manual</string>
+        </dict>
+        </plist>
+        EOF
+
     - name: Build iOS App for Distribution
       run: |
         mkdir -p build/logs
-        xcodebuild clean archive -project VideoWaniOS.xcodeproj -scheme VideoWaniOS -sdk iphoneos -configuration Release -archivePath build/VideoWaniOS.xcarchive CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS="" CODE_SIGNING_ALLOWED=NO | tee build/logs/build.log
+        set -o pipefail && xcodebuild clean archive -project VideoWaniOS.xcodeproj -scheme VideoWaniOS -sdk iphoneos -configuration Release -archivePath build/VideoWaniOS.xcarchive CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS="" CODE_SIGNING_ALLOWED=NO | tee build/logs/build.log || exit 1
 
     - name: Export IPA
       run: |
-        mkdir -p build/Payload
-        cp -r build/VideoWaniOS.xcarchive/Products/Applications/VideoWaniOS.app build/Payload/
-        cd build && zip -r VideoWaniOS.ipa Payload
+        # Try standard export first
+        xcodebuild -exportArchive -archivePath build/VideoWaniOS.xcarchive -exportPath build/export -exportOptionsPlist exportOptions.plist || true
+        
+        # If that fails, use manual method as fallback
+        if [ ! -f "build/export/VideoWaniOS.ipa" ]; then
+          echo "Standard export failed, using manual method..."
+          mkdir -p build/Payload
+          cp -r build/VideoWaniOS.xcarchive/Products/Applications/VideoWaniOS.app build/Payload/
+          cd build && zip -r VideoWaniOS.ipa Payload
+          cd ..
+        else
+          cp build/export/VideoWaniOS.ipa build/VideoWaniOS.ipa
+        fi
 
     - name: Upload IPA
       uses: actions/upload-artifact@v4
@@ -59,14 +90,16 @@ jobs:
         name: build-logs
         path: build/logs/
 
-    - name: Generate Web Version
+    - name: Prepare Web Version for Deployment
       run: |
         mkdir -p build/web_version
-        cp -r web_version/* build/web_version/ || true
+        if [ -d "web_version" ]; then
+          cp -r web_version/* build/web_version/ || true
+        fi
 
     - name: Update manifest.plist with correct URL
       run: |
-        sed -i '' "s|https://Flickinny11.github.io|https://${{ github.repository_owner }}.github.io|g" manifest.plist
+        sed -i.bak "s|https://Flickinny11.github.io|https://${{ github.repository_owner }}.github.io|g" manifest.plist
         cp manifest.plist build/
         cp index.html build/
 
