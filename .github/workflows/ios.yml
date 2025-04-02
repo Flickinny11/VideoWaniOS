@@ -22,11 +22,10 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.0'
-        bundler-cache: true
-
     - name: Install dependencies
       run: |
         gem install cocoapods
+        # Remove duplicated gem install and fix pod installation
         if [ -f "Podfile" ]; then
           pod install || pod install --repo-update || echo "Pod install failed, continuing with empty Pods"
         fi
@@ -54,7 +53,18 @@ jobs:
     - name: Build iOS App for Distribution
       run: |
         mkdir -p build/logs
-        set -o pipefail && xcodebuild clean archive -project VideoWaniOS.xcodeproj -scheme VideoWaniOS -sdk iphoneos -configuration Release -archivePath build/VideoWaniOS.xcarchive CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS="" CODE_SIGNING_ALLOWED=NO | tee build/logs/build.log || exit 1
+        # Use explicit path to the project and set specific build settings
+        xcodebuild clean archive \
+          -project ${GITHUB_WORKSPACE}/VideoWaniOS.xcodeproj \
+          -scheme VideoWaniOS \
+          -sdk iphoneos \
+          -configuration Release \
+          -archivePath ${GITHUB_WORKSPACE}/build/VideoWaniOS.xcarchive \
+          CODE_SIGN_IDENTITY="" \
+          CODE_SIGNING_REQUIRED=NO \
+          CODE_SIGN_ENTITLEMENTS="" \
+          CODE_SIGNING_ALLOWED=NO \
+          | tee build/logs/build.log || exit 1
 
     - name: Export IPA
       run: |
