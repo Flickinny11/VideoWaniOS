@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 
 @main
 struct VideoWaniOSApp: App {

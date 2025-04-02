@@ -1,4 +1,5 @@
 import SwiftUI
+import AVKit
 
 struct QueueView: View {
     @EnvironmentObject var viewModel: GenerationViewModel
@@ -81,7 +82,7 @@ struct VideoRequestCell: View {
             }
             
             if request.status == .processing {
-                CustomProgressView(progress: request.progress, color: .blue)
+                VideoProgressBar(progress: request.progress, color: .blue)
                     .frame(height: 10)
                     .padding(.vertical, 5)
                 

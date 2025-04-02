@@ -272,4 +272,88 @@ class VideoGenerator {
         
         return sampleBuffer!
     }
+    
+    // Function to generate a mock video file
+    static func generateMockVideo(requestId: String, completion: @escaping (URL?) -> Void) {
+        // Create a directory for videos if it doesn't exist
+        let docDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let videoDir = docDir.appendingPathComponent("videos", isDirectory: true)
+        try? FileManager.default.createDirectory(at: videoDir, withIntermediateDirectories: true)
+        
+        // Create a file URL for our MP4
+        let fileURL = videoDir.appendingPathComponent("\(requestId).mp4")
+        
+        // Create a sequence of images for the video
+        let width = 640
+        let height = 360
+        var images: [UIImage] = []
+        let frameCount = 30 // 1 second at 30fps
+        
+        for i in 0..<frameCount {
+            UIGraphicsBeginImageContextWithOptions(CGSize(width: width, height: height), false, 1.0)
+            guard let context = UIGraphicsGetCurrentContext() else {
+                UIGraphicsEndImageContext()
+                continue
+            }
+            
+            // Draw background - dark gradient
+            let gradient = CGGradient(
+                colorsSpace: CGColorSpaceCreateDeviceRGB(),
+                colors: [
+                    UIColor(red: 0.05, green: 0.05, blue: 0.1, alpha: 1.0).cgColor,
+                    UIColor(red: 0.1, green: 0.1, blue: 0.3, alpha: 1.0).cgColor
+                ] as CFArray,
+                locations: [0.0, 1.0]
+            )!
+            
+            context.drawLinearGradient(
+                gradient,
+                start: CGPoint(x: 0, y: 0),
+                end: CGPoint(x: width, y: height),
+                options: []
+            )
+            
+            // Draw an animated element
+            let progress = CGFloat(i) / CGFloat(frameCount - 1)
+            let xPos = Int(progress * CGFloat(width - 150))
+            let yPos = Int(CGFloat(height) / 2 - 75)
+            
+            // Draw a blue rectangle that moves across the screen
+            context.setFillColor(UIColor.blue.cgColor)
+            context.setStrokeColor(UIColor.white.cgColor)
+            context.setLineWidth(2)
+            context.addRect(CGRect(x: xPos, y: yPos, width: 150, height: 150))
+            context.drawPath(using: .fillStroke)
+            
+            // Add text
+            let text = "Frame \(i+1)/\(frameCount)"
+            let textAttributes: [NSAttributedString.Key: Any] = [
+                .foregroundColor: UIColor.white,
+                .font: UIFont.systemFont(ofSize: 14)
+            ]
+            (text as NSString).draw(at: CGPoint(x: 10, y: 20), withAttributes: textAttributes)
+            
+            // Add RequestID
+            let requestText = "ID: \(requestId.prefix(8))"
+            (requestText as NSString).draw(at: CGPoint(x: 10, y: height - 30), withAttributes: textAttributes)
+            
+            // Capture the image
+            let image = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            
+            if let image = image {
+                images.append(image)
+            }
+        }
+        
+        // Generate the MP4 video
+        generateMP4FromImages(images, frameRate: 30, outputURL: fileURL) { success, error in
+            if success {
+                completion(fileURL)
+            } else {
+                print("Error generating video: \(error?.localizedDescription ?? "unknown error")")
+                completion(nil)
+            }
+        }
+    }
 }

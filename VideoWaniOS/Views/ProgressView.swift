@@ -1,6 +1,7 @@
 import SwiftUI
 
-struct CustomProgressView: View {
+// Renamed to VideoProgressBar to avoid naming conflict
+struct VideoProgressBar: View {
     let progress: Double
     let color: Color
     
