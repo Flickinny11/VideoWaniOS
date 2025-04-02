@@ -34,8 +34,8 @@ jobs:
 
     - name: Build iOS App without code signing
       run: |
-        xcodebuild clean -project VideoWaniOS.xcodeproj -scheme VideoWaniOS -configuration Release
-        xcodebuild -project VideoWaniOS.xcodeproj -scheme VideoWaniOS -configuration Release -sdk iphoneos CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS="" CODE_SIGNING_ALLOWED=NO
+        xcodebuild clean -project VideoWaniOS.xcodeproj -scheme VideoWaniOS -configuration Release -allowProvisioningUpdates
+        xcodebuild -project VideoWaniOS.xcodeproj -scheme VideoWaniOS -configuration Release -sdk iphoneos CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS="" CODE_SIGNING_ALLOWED=NO -allowProvisioningUpdates
 
     - name: Create IPA Package
       run: |
