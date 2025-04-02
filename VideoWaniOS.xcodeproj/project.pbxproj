@@ -1,3 +1,4 @@
+// !$*UTF8*$!
 {
 	archiveVersion = 1;
 	classes = {
@@ -6,49 +7,51 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A1FFFFFF1000000000000001 /* VideoWaniOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FFFFFF1000000000000002 /* VideoWaniOSApp.swift */; };
-		A1FFFFFF1000000000000003 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FFFFFF1000000000000004 /* ContentView.swift */; };
-		A1FFFFFF1000000000000005 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1FFFFFF1000000000000006 /* Assets.xcassets */; };
-		A1FFFFFF1000000000000007 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1FFFFFF1000000000000008 /* Preview Assets.xcassets */; };
-		A1FFFFFF1000000000000009 /* WanVideoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FFFFFF100000000000000A /* WanVideoService.swift */; };
-		A1FFFFFF100000000000000B /* VideoGenerationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FFFFFF100000000000000C /* VideoGenerationModel.swift */; };
-		A1FFFFFF100000000000000D /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FFFFFF100000000000000E /* ImagePickerView.swift */; };
-		A1FFFFFF100000000000000F /* PromptInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FFFFFF1000000000000010 /* PromptInputView.swift */; };
-		A1FFFFFF1000000000000011 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FFFFFF1000000000000012 /* VideoPlayerView.swift */; };
-		A1FFFFFF1000000000000013 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FFFFFF1000000000000014 /* ProgressView.swift */; };
-		A1FFFFFF1000000000000015 /* QueueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FFFFFF1000000000000016 /* QueueView.swift */; };
-		A1FFFFFF1000000000000017 /* GenerationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FFFFFF1000000000000018 /* GenerationViewModel.swift */; };
-		A1FFFFFF100000000000001F /* LocalServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FFFFFF1000000000000020 /* LocalServerManager.swift */; };
-		A1FFFFFF1000000000000021 /* MockServerURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FFFFFF1000000000000022 /* MockServerURLProtocol.swift */; };
-		A1FFFFFF1000000000000023 /* ServerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FFFFFF1000000000000024 /* ServerSettingsView.swift */; };
-		A1FFFFFF1000000000000025 /* server.py in Resources */ = {isa = PBXBuildFile; fileRef = A1FFFFFF1000000000000026 /* server.py */; };
-		A1FFFFFF1000000000000027 /* gif_header.data in Resources */ = {isa = PBXBuildFile; fileRef = A1FFFFFF1000000000000028 /* gif_header.data */; };
+		BF2A80102B9E01A100E86F92 /* VideoWaniOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2A800F2B9E01A100E86F92 /* VideoWaniOSApp.swift */; };
+		BF2A80122B9E01A100E86F92 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2A80112B9E01A100E86F92 /* ContentView.swift */; };
+		BF2A80142B9E01A300E86F92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF2A80132B9E01A300E86F92 /* Assets.xcassets */; };
+		BF2A80172B9E01A300E86F92 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF2A80162B9E01A300E86F92 /* Preview Assets.xcassets */; };
+		BF2A80242B9E057700E86F92 /* WanVideoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2A80232B9E057700E86F92 /* WanVideoService.swift */; };
+		BF2A80262B9E058F00E86F92 /* VideoGenerationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2A80252B9E058F00E86F92 /* VideoGenerationModel.swift */; };
+		BF2A80282B9E05E500E86F92 /* GenerationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2A80272B9E05E500E86F92 /* GenerationViewModel.swift */; };
+		BF2A802A2B9E05F500E86F92 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2A80292B9E05F500E86F92 /* ImagePickerView.swift */; };
+		BF2A802C2B9E061000E86F92 /* PromptInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2A802B2B9E061000E86F92 /* PromptInputView.swift */; };
+		BF2A802E2B9E061E00E86F92 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2A802D2B9E061E00E86F92 /* VideoPlayerView.swift */; };
+		BF2A80302B9E062800E86F92 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2A802F2B9E062800E86F92 /* ProgressView.swift */; };
+		BF2A80322B9E063700E86F92 /* QueueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2A80312B9E063700E86F92 /* QueueView.swift */; };
+		BF2A80342B9E064800E86F92 /* ServerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2A80332B9E064800E86F92 /* ServerSettingsView.swift */; };
+		BF2A80372B9E066800E86F92 /* LocalServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2A80362B9E066800E86F92 /* LocalServerManager.swift */; };
+		BF2A80392B9E067800E86F92 /* MockServerURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2A80382B9E067800E86F92 /* MockServerURLProtocol.swift */; };
+		BF2A803D2B9E07BC00E86F92 /* server.py in Resources */ = {isa = PBXBuildFile; fileRef = BF2A803C2B9E07BC00E86F92 /* server.py */; };
+		BF2A803F2B9E07C700E86F92 /* gif_header.data in Resources */ = {isa = PBXBuildFile; fileRef = BF2A803E2B9E07C700E86F92 /* gif_header.data */; };
+		BF2A80422B9E088700E86F92 /* VideoGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF2A80412B9E088700E86F92 /* VideoGenerator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A1FFFFFF1000000000000019 /* VideoWaniOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoWaniOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A1FFFFFF1000000000000002 /* VideoWaniOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoWaniOSApp.swift; sourceTree = "<group>"; };
-		A1FFFFFF1000000000000004 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		A1FFFFFF1000000000000006 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A1FFFFFF1000000000000008 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		A1FFFFFF100000000000000A /* WanVideoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WanVideoService.swift; sourceTree = "<group>"; };
-		A1FFFFFF100000000000000C /* VideoGenerationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoGenerationModel.swift; sourceTree = "<group>"; };
-		A1FFFFFF100000000000000E /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
-		A1FFFFFF1000000000000010 /* PromptInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptInputView.swift; sourceTree = "<group>"; };
-		A1FFFFFF1000000000000012 /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
-		A1FFFFFF1000000000000014 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
-		A1FFFFFF1000000000000016 /* QueueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueView.swift; sourceTree = "<group>"; };
-		A1FFFFFF1000000000000018 /* GenerationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerationViewModel.swift; sourceTree = "<group>"; };
-		A1FFFFFF100000000000001A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A1FFFFFF1000000000000020 /* LocalServerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalServerManager.swift; sourceTree = "<group>"; };
-		A1FFFFFF1000000000000022 /* MockServerURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockServerURLProtocol.swift; sourceTree = "<group>"; };
-		A1FFFFFF1000000000000024 /* ServerSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSettingsView.swift; sourceTree = "<group>"; };
-		A1FFFFFF1000000000000026 /* server.py */ = {isa = PBXFileReference; lastKnownFileType = text; path = server.py; sourceTree = "<group>"; };
-		A1FFFFFF1000000000000028 /* gif_header.data */ = {isa = PBXFileReference; lastKnownFileType = file; path = gif_header.data; sourceTree = "<group>"; };
+		BF2A800C2B9E01A100E86F92 /* VideoWaniOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoWaniOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF2A800F2B9E01A100E86F92 /* VideoWaniOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoWaniOSApp.swift; sourceTree = "<group>"; };
+		BF2A80112B9E01A100E86F92 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		BF2A80132B9E01A300E86F92 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BF2A80162B9E01A300E86F92 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		BF2A80232B9E057700E86F92 /* WanVideoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WanVideoService.swift; sourceTree = "<group>"; };
+		BF2A80252B9E058F00E86F92 /* VideoGenerationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoGenerationModel.swift; sourceTree = "<group>"; };
+		BF2A80272B9E05E500E86F92 /* GenerationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerationViewModel.swift; sourceTree = "<group>"; };
+		BF2A80292B9E05F500E86F92 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
+		BF2A802B2B9E061000E86F92 /* PromptInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptInputView.swift; sourceTree = "<group>"; };
+		BF2A802D2B9E061E00E86F92 /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
+		BF2A802F2B9E062800E86F92 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
+		BF2A80312B9E063700E86F92 /* QueueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueView.swift; sourceTree = "<group>"; };
+		BF2A80332B9E064800E86F92 /* ServerSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSettingsView.swift; sourceTree = "<group>"; };
+		BF2A80362B9E066800E86F92 /* LocalServerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalServerManager.swift; sourceTree = "<group>"; };
+		BF2A80382B9E067800E86F92 /* MockServerURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockServerURLProtocol.swift; sourceTree = "<group>"; };
+		BF2A803A2B9E069B00E86F92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BF2A803C2B9E07BC00E86F92 /* server.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = server.py; sourceTree = "<group>"; };
+		BF2A803E2B9E07C700E86F92 /* gif_header.data */ = {isa = PBXFileReference; lastKnownFileType = file; path = gif_header.data; sourceTree = "<group>"; };
+		BF2A80412B9E088700E86F92 /* VideoGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoGenerator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		A1FFFFFF100000000000001B /* Frameworks */ = {
+		BF2A80092B9E01A100E86F92 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -58,97 +61,98 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A1FFFFFF100000000000001C /* Products */ = {
+		BF2A80032B9E01A100E86F92 = {
 			isa = PBXGroup;
 			children = (
-				A1FFFFFF1000000000000019 /* VideoWaniOS.app */,
+				BF2A800E2B9E01A100E86F92 /* VideoWaniOS */,
+				BF2A800D2B9E01A100E86F92 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BF2A800D2B9E01A100E86F92 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BF2A800C2B9E01A100E86F92 /* VideoWaniOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A1FFFFFF100000000000001D /* VideoWaniOS */ = {
+		BF2A800E2B9E01A100E86F92 /* VideoWaniOS */ = {
 			isa = PBXGroup;
 			children = (
-				A1FFFFFF100000000000001A /* Info.plist */,
-				A1FFFFFF1000000000000002 /* VideoWaniOSApp.swift */,
-				A1FFFFFF1000000000000004 /* ContentView.swift */,
-				A1FFFFFF100000000000001E /* Models */,
-				A1FFFFFF100000000000001F /* Views */,
-				A1FFFFFF1000000000000020 /* Services */,
-				A1FFFFFF100000000000002B /* Resources */,
-				A1FFFFFF1000000000000006 /* Assets.xcassets */,
-				A1FFFFFF1000000000000021 /* Preview Content */,
+				BF2A803B2B9E07AD00E86F92 /* Resources */,
+				BF2A803A2B9E069B00E86F92 /* Info.plist */,
+				BF2A80222B9E055700E86F92 /* Services */,
+				BF2A80212B9E055000E86F92 /* Views */,
+				BF2A801F2B9E053A00E86F92 /* Models */,
+				BF2A800F2B9E01A100E86F92 /* VideoWaniOSApp.swift */,
+				BF2A80112B9E01A100E86F92 /* ContentView.swift */,
+				BF2A80132B9E01A300E86F92 /* Assets.xcassets */,
+				BF2A80152B9E01A300E86F92 /* Preview Content */,
 			);
 			path = VideoWaniOS;
 			sourceTree = "<group>";
 		};
-		A1FFFFFF100000000000001E /* Models */ = {
+		BF2A80152B9E01A300E86F92 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				A1FFFFFF100000000000000C /* VideoGenerationModel.swift */,
-				A1FFFFFF1000000000000018 /* GenerationViewModel.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		A1FFFFFF100000000000001F /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				A1FFFFFF100000000000000E /* ImagePickerView.swift */,
-				A1FFFFFF1000000000000010 /* PromptInputView.swift */,
-				A1FFFFFF1000000000000012 /* VideoPlayerView.swift */,
-				A1FFFFFF1000000000000014 /* ProgressView.swift */,
-				A1FFFFFF1000000000000016 /* QueueView.swift */,
-				A1FFFFFF1000000000000024 /* ServerSettingsView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		A1FFFFFF1000000000000020 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				A1FFFFFF100000000000000A /* WanVideoService.swift */,
-				A1FFFFFF1000000000000020 /* LocalServerManager.swift */,
-				A1FFFFFF1000000000000022 /* MockServerURLProtocol.swift */,
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
-		A1FFFFFF1000000000000021 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				A1FFFFFF1000000000000008 /* Preview Assets.xcassets */,
+				BF2A80162B9E01A300E86F92 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		A1FFFFFF100000000000002B /* Resources */ = {
+		BF2A801F2B9E053A00E86F92 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				A1FFFFFF1000000000000026 /* server.py */,
-				A1FFFFFF1000000000000028 /* gif_header.data */,
+				BF2A80252B9E058F00E86F92 /* VideoGenerationModel.swift */,
+				BF2A80272B9E05E500E86F92 /* GenerationViewModel.swift */,
 			);
-			path = Resources;
+			path = Models;
 			sourceTree = "<group>";
 		};
-		A1FFFFFF1000000000000022 = {
+		BF2A80212B9E055000E86F92 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				A1FFFFFF100000000000001D /* VideoWaniOS */,
-				A1FFFFFF100000000000001C /* Products */,
+				BF2A80292B9E05F500E86F92 /* ImagePickerView.swift */,
+				BF2A802B2B9E061000E86F92 /* PromptInputView.swift */,
+				BF2A802D2B9E061E00E86F92 /* VideoPlayerView.swift */,
+				BF2A802F2B9E062800E86F92 /* ProgressView.swift */,
+				BF2A80312B9E063700E86F92 /* QueueView.swift */,
+				BF2A80332B9E064800E86F92 /* ServerSettingsView.swift */,
 			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BF2A80222B9E055700E86F92 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				BF2A80232B9E057700E86F92 /* WanVideoService.swift */,
+				BF2A80362B9E066800E86F92 /* LocalServerManager.swift */,
+				BF2A80382B9E067800E86F92 /* MockServerURLProtocol.swift */,
+				BF2A80412B9E088700E86F92 /* VideoGenerator.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		BF2A803B2B9E07AD00E86F92 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BF2A803C2B9E07BC00E86F92 /* server.py */,
+				BF2A803E2B9E07C700E86F92 /* gif_header.data */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A1FFFFFF1000000000000023 /* VideoWaniOS */ = {
+		BF2A800B2B9E01A100E86F92 /* VideoWaniOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A1FFFFFF100000000000002C /* Build configuration list for PBXNativeTarget "VideoWaniOS" */;
+			buildConfigurationList = BF2A801A2B9E01A300E86F92 /* Build configuration list for PBXNativeTarget "VideoWaniOS" */;
 			buildPhases = (
-				A1FFFFFF1000000000000025 /* Sources */,
-				A1FFFFFF100000000000001B /* Frameworks */,
-				A1FFFFFF1000000000000026 /* Resources */,
+				BF2A80082B9E01A100E86F92 /* Sources */,
+				BF2A80092B9E01A100E86F92 /* Frameworks */,
+				BF2A800A2B9E01A100E86F92 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -156,25 +160,25 @@
 			);
 			name = VideoWaniOS;
 			productName = VideoWaniOS;
-			productReference = A1FFFFFF1000000000000019 /* VideoWaniOS.app */;
+			productReference = BF2A800C2B9E01A100E86F92 /* VideoWaniOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		A1FFFFFF1000000000000027 /* Project object */ = {
+		BF2A80042B9E01A100E86F92 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1530;
 				LastUpgradeCheck = 1530;
 				TargetAttributes = {
-					A1FFFFFF1000000000000023 = {
+					BF2A800B2B9E01A100E86F92 = {
 						CreatedOnToolsVersion = 15.3;
 					};
 				};
 			};
-			buildConfigurationList = A1FFFFFF100000000000002D /* Build configuration list for PBXProject "VideoWaniOS" */;
+			buildConfigurationList = BF2A80072B9E01A100E86F92 /* Build configuration list for PBXProject "VideoWaniOS" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -182,59 +186,59 @@
 				en,
 				Base,
 			);
-			mainGroup = A1FFFFFF1000000000000022;
-			productRefGroup = A1FFFFFF100000000000001C /* Products */;
+			mainGroup = BF2A80032B9E01A100E86F92;
+			productRefGroup = BF2A800D2B9E01A100E86F92 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A1FFFFFF1000000000000023 /* VideoWaniOS */,
+				BF2A800B2B9E01A100E86F92 /* VideoWaniOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		A1FFFFFF1000000000000026 /* Resources */ = {
+		BF2A800A2B9E01A100E86F92 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1FFFFFF1000000000000007 /* Preview Assets.xcassets in Resources */,
-				A1FFFFFF1000000000000005 /* Assets.xcassets in Resources */,
-				A1FFFFFF1000000000000025 /* server.py in Resources */,
-				A1FFFFFF1000000000000027 /* gif_header.data in Resources */,
+				BF2A80172B9E01A300E86F92 /* Preview Assets.xcassets in Resources */,
+				BF2A803F2B9E07C700E86F92 /* gif_header.data in Resources */,
+				BF2A803D2B9E07BC00E86F92 /* server.py in Resources */,
+				BF2A80142B9E01A300E86F92 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		A1FFFFFF1000000000000025 /* Sources */ = {
+		BF2A80082B9E01A100E86F92 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1FFFFFF1000000000000003 /* ContentView.swift in Sources */,
-				A1FFFFFF1000000000000001 /* VideoWaniOSApp.swift in Sources */,
-				A1FFFFFF1000000000000009 /* WanVideoService.swift in Sources */,
-				A1FFFFFF100000000000000B /* VideoGenerationModel.swift in Sources */,
-				A1FFFFFF100000000000000D /* ImagePickerView.swift in Sources */,
-				A1FFFFFF100000000000000F /* PromptInputView.swift in Sources */,
-				A1FFFFFF1000000000000011 /* VideoPlayerView.swift in Sources */,
-				A1FFFFFF1000000000000013 /* ProgressView.swift in Sources */,
-				A1FFFFFF1000000000000015 /* QueueView.swift in Sources */,
-				A1FFFFFF1000000000000017 /* GenerationViewModel.swift in Sources */,
-				A1FFFFFF100000000000001F /* LocalServerManager.swift in Sources */,
-				A1FFFFFF1000000000000021 /* MockServerURLProtocol.swift in Sources */,
-				A1FFFFFF1000000000000023 /* ServerSettingsView.swift in Sources */,
+				BF2A80122B9E01A100E86F92 /* ContentView.swift in Sources */,
+				BF2A802A2B9E05F500E86F92 /* ImagePickerView.swift in Sources */,
+				BF2A80322B9E063700E86F92 /* QueueView.swift in Sources */,
+				BF2A80302B9E062800E86F92 /* ProgressView.swift in Sources */,
+				BF2A80342B9E064800E86F92 /* ServerSettingsView.swift in Sources */,
+				BF2A80102B9E01A100E86F92 /* VideoWaniOSApp.swift in Sources */,
+				BF2A80422B9E088700E86F92 /* VideoGenerator.swift in Sources */,
+				BF2A802E2B9E061E00E86F92 /* VideoPlayerView.swift in Sources */,
+				BF2A80392B9E067800E86F92 /* MockServerURLProtocol.swift in Sources */,
+				BF2A80262B9E058F00E86F92 /* VideoGenerationModel.swift in Sources */,
+				BF2A80242B9E057700E86F92 /* WanVideoService.swift in Sources */,
+				BF2A80282B9E05E500E86F92 /* GenerationViewModel.swift in Sources */,
+				BF2A802C2B9E061000E86F92 /* PromptInputView.swift in Sources */,
+				BF2A80372B9E066800E86F92 /* LocalServerManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		A1FFFFFF1000000000000029 /* Debug */ = {
+		BF2A80182B9E01A300E86F92 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -267,13 +271,13 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
+					"$(inherited)",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -282,14 +286,13 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SERIALIZE_DEBUGGING_OPTIONS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
@@ -297,11 +300,10 @@
 			};
 			name = Debug;
 		};
-		A1FFFFFF100000000000002A /* Release */ = {
+		BF2A80192B9E01A300E86F92 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -334,7 +336,6 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -344,14 +345,11 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_SERIALIZE_DEBUGGING_OPTIONS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGNING_REQUIRED = NO;
@@ -360,7 +358,7 @@
 			};
 			name = Release;
 		};
-		A1FFFFFF100000000000002E /* Debug */ = {
+		BF2A801B2B9E01A300E86F92 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -377,7 +375,10 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.VideoWaniOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -392,7 +393,7 @@
 			};
 			name = Debug;
 		};
-		A1FFFFFF100000000000002F /* Release */ = {
+		BF2A801C2B9E01A300E86F92 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -409,7 +410,10 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.VideoWaniOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -427,25 +431,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A1FFFFFF100000000000002C /* Build configuration list for PBXNativeTarget "VideoWaniOS" */ = {
+		BF2A80072B9E01A100E86F92 /* Build configuration list for PBXProject "VideoWaniOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A1FFFFFF100000000000002E /* Debug */,
-				A1FFFFFF100000000000002F /* Release */,
+				BF2A80182B9E01A300E86F92 /* Debug */,
+				BF2A80192B9E01A300E86F92 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A1FFFFFF100000000000002D /* Build configuration list for PBXProject "VideoWaniOS" */ = {
+		BF2A801A2B9E01A300E86F92 /* Build configuration list for PBXNativeTarget "VideoWaniOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A1FFFFFF1000000000000029 /* Debug */,
-				A1FFFFFF100000000000002A /* Release */,
+				BF2A801B2B9E01A300E86F92 /* Debug */,
+				BF2A801C2B9E01A300E86F92 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = A1FFFFFF1000000000000027 /* Project object */;
+	rootObject = BF2A80042B9E01A100E86F92 /* Project object */;
 }
