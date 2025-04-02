@@ -32,36 +32,10 @@ jobs:
       run: sudo gem install cocoapods
       continue-on-error: true
 
-    - name: Create export options plist
-      run: |
-        cat > exportOptions.plist << EOT
-        <?xml version="1.0" encoding="UTF-8"?>
-        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-        <plist version="1.0">
-        <dict>
-            <key>method</key>
-            <string>development</string>
-            <key>provisioningProfiles</key>
-            <dict>
-                <key>com.example.VideoWaniOS</key>
-                <string>iOS Team Provisioning Profile: com.example.VideoWaniOS</string>
-            </dict>
-            <key>signingCertificate</key>
-            <string>Apple Development</string>
-            <key>signingStyle</key>
-            <string>automatic</string>
-            <key>teamID</key>
-            <string>AUTO</string>
-            <key>compileBitcode</key>
-            <false/>
-        </dict>
-        </plist>
-        EOT
-
     - name: Build iOS App without code signing
       run: |
         xcodebuild clean -project VideoWaniOS.xcodeproj -scheme VideoWaniOS -configuration Release
-        xcodebuild -project VideoWaniOS.xcodeproj -scheme VideoWaniOS -configuration Release -sdk iphoneos CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+        xcodebuild -project VideoWaniOS.xcodeproj -scheme VideoWaniOS -configuration Release -sdk iphoneos CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS="" CODE_SIGNING_ALLOWED=NO
 
     - name: Create IPA Package
       run: |

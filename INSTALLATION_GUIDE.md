@@ -84,3 +84,13 @@ If you have trouble with the installation, you can use the web version:
 ## Need Help?
 
 If you encounter any issues, please refer to the troubleshooting guide or try the web version as an alternative.
+
+## Additional Instructions for Downloading and Installing the App on an iPad
+
+1. Ensure you have followed all the steps above to build and upload the app to GitHub.
+2. On your iPad, open Safari and navigate to your GitHub Pages URL: `https://YOUR_GITHUB_USERNAME.github.io/VideoWaniOS/`
+3. Tap the "Install VideoWaniOS" button to download the app.
+4. If prompted, tap "Allow" to confirm the installation.
+5. Once the app is downloaded, go to Settings → General → Device Management and trust the developer profile.
+6. Launch the VideoWaniOS app from your home screen.
+7. If you encounter any issues, refer to the troubleshooting guide or use the web version as an alternative.
