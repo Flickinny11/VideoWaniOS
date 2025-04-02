@@ -10,6 +10,11 @@ jobs:
     runs-on: macos-latest
     permissions:
       contents: write
+    
+    env:
+      ARCHIVE_PATH: /Users/runner/work/VideoWaniOS/VideoWaniOS/build/VideoWaniOS.xcarchive
+      EXPORT_PATH: /Users/runner/work/VideoWaniOS/VideoWaniOS/build/export
+      
     steps:
     - uses: actions/checkout@v3
 
@@ -53,33 +58,67 @@ jobs:
     - name: Build iOS App for Distribution
       run: |
         mkdir -p build/logs
+        echo "Building archive at path: $ARCHIVE_PATH"
         # Use explicit path to the project and set specific build settings
         xcodebuild clean archive \
           -project ${GITHUB_WORKSPACE}/VideoWaniOS.xcodeproj \
           -scheme VideoWaniOS \
           -sdk iphoneos \
           -configuration Release \
-          -archivePath ${GITHUB_WORKSPACE}/build/VideoWaniOS.xcarchive \
+          -archivePath ${ARCHIVE_PATH} \
           CODE_SIGN_IDENTITY="" \
           CODE_SIGNING_REQUIRED=NO \
           CODE_SIGN_ENTITLEMENTS="" \
           CODE_SIGNING_ALLOWED=NO \
           | tee build/logs/build.log || exit 1
+        
+        # Verify archive was created
+        if [ -d "$ARCHIVE_PATH" ]; then
+          echo "✅ Archive created successfully at: $ARCHIVE_PATH"
+          ls -la "$ARCHIVE_PATH"
+        else
+          echo "❌ Archive was not created at: $ARCHIVE_PATH"
+          echo "Contents of build directory:"
+          ls -la build/
+          exit 1
+        fi
 
     - name: Export IPA
       run: |
-        # Try standard export first
-        xcodebuild -exportArchive -archivePath build/VideoWaniOS.xcarchive -exportPath build/export -exportOptionsPlist exportOptions.plist || true
+        echo "Exporting IPA from archive: $ARCHIVE_PATH"
         
-        # If that fails, use manual method as fallback
-        if [ ! -f "build/export/VideoWaniOS.ipa" ]; then
-          echo "Standard export failed, using manual method..."
-          mkdir -p build/Payload
-          cp -r build/VideoWaniOS.xcarchive/Products/Applications/VideoWaniOS.app build/Payload/
-          cd build && zip -r VideoWaniOS.ipa Payload
-          cd ..
+        # Check if archive exists before attempting to export
+        if [ ! -d "$ARCHIVE_PATH" ]; then
+          echo "Error: Archive not found at path $ARCHIVE_PATH"
+          echo "Contents of build directory:"
+          ls -la build/
+          exit 1
+        fi
+        
+        # Try standard export first
+        xcodebuild -exportArchive -archivePath "$ARCHIVE_PATH" -exportPath "$EXPORT_PATH" -exportOptionsPlist exportOptions.plist
+        export_status=$?
+        
+        if [ $export_status -eq 0 ] && [ -f "$EXPORT_PATH/VideoWaniOS.ipa" ]; then
+          echo "✅ Standard export successful"
+          cp "$EXPORT_PATH/VideoWaniOS.ipa" build/VideoWaniOS.ipa
         else
-          cp build/export/VideoWaniOS.ipa build/VideoWaniOS.ipa
+          echo "⚠️ Standard export failed, using manual method..."
+          
+          # Verify the .app exists inside the archive
+          if [ -d "$ARCHIVE_PATH/Products/Applications/VideoWaniOS.app" ]; then
+            echo "Found app inside archive, proceeding with manual export"
+            mkdir -p build/Payload
+            cp -r "$ARCHIVE_PATH/Products/Applications/VideoWaniOS.app" build/Payload/
+            cd build && zip -r VideoWaniOS.ipa Payload
+            cd ..
+            echo "✅ Manual export completed"
+          else
+            echo "❌ Error: App not found in archive at $ARCHIVE_PATH/Products/Applications/"
+            echo "Contents of Products directory:"
+            ls -la "$ARCHIVE_PATH/Products/" || echo "Products directory not found"
+            exit 1
+          fi
         fi
 
     - name: Upload IPA
